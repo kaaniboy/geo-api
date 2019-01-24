@@ -1,43 +1,63 @@
 package controller;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import dao.EventDao;
-import models.Event;
+import model.Event;
 import spark.Request;
 import spark.Response;
 
 import javax.validation.ConstraintViolation;
 
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static response.Response.getValidationMessages;
 import static response.Response.success;
 import static response.Response.fail;
-import static response.GsonHelper.gson;
 
 public class EventController extends BaseController {
     private EventDao eventDao = new EventDao();
 
     public String create(Request req, Response res) {
-        res.type("application/json");
-
-        Event event = gson().fromJson(req.body(), Event.class);
+        Event event = gson.fromJson(req.body(), Event.class);
         System.out.println(event);
 
         Set<ConstraintViolation<Event>> issues = validator.validate(event);
 
         if (issues.isEmpty()) {
-            eventDao.addEvent(event);
+            eventDao.createEvent(event);
             return success(null);
         } else {
-            return fail(gson().toJsonTree(getValidationMessages(issues)));
+            return fail(gson.toJsonTree(getValidationMessages(issues)));
         }
     }
 
     public String read(Request req, Response res) {
-        return "event/read";
+        int id = Integer.parseInt(req.params("id"));
+
+        Event event = eventDao.readEvent(id);
+
+        if (event != null) {
+            JsonObject eventJson = new JsonObject();
+            eventJson.add("event", gson.toJsonTree(event));
+            return success(gson.toJsonTree(eventJson));
+        } else {
+            return fail("An event with the provided id does not exist.");
+        }
+    }
+
+    public String update(Request req, Response res) {
+        int id = Integer.parseInt(req.params("id"));
+
+        Event event = gson.fromJson(req.body(), Event.class);
+
+        event = eventDao.updateEvent(id, event);
+
+        if (event != null) {
+            JsonObject eventJson = new JsonObject();
+            eventJson.add("event", gson.toJsonTree(event));
+            return success(gson.toJsonTree(eventJson));
+        } else {
+            return fail("An event with the provided id does not exist.");
+        }
     }
 }
