@@ -19,7 +19,6 @@ public class EventController extends BaseController {
 
     public String create(Request req, Response res) {
         Event event = gson.fromJson(req.body(), Event.class);
-        System.out.println(event);
 
         Set<ConstraintViolation<Event>> issues = validator.validate(event);
 

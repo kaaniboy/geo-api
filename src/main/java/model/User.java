@@ -8,6 +8,7 @@ public class User {
     private String lastName;
 
     private int userId;
+
     private int fbUserId;
     private String fbAccessToken;
 }
