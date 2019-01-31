@@ -3,7 +3,6 @@ package model;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 
 @Data
 @Entity
@@ -14,17 +13,17 @@ public class Invite {
     @Column(name="invite_id")
     private int inviteId;
 
-    @Column(name="event_id")
-    @Min(value = 0, message = "The invite must be tied to an event.")
-    private int eventId = -1;
+    @ManyToOne
+    @JoinColumn(name="event_id")
+    private Event event;
 
-    @Column(name="inviter_id")
-    @Min(value = 0, message = "The invite must have an inviter.")
-    private int inviterId = -1;
+    @ManyToOne
+    @JoinColumn(name="inviter_id")
+    private User inviter;
 
-    @Column(name="guest_id")
-    @Min(value = 0, message = "The invite must have a guest.")
-    private int guestId = -1;
+    @ManyToOne
+    @JoinColumn(name="guest_id")
+    private User guest;
 
     @Column(name="state")
     private String state = "pending";

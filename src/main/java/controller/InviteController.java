@@ -1,29 +1,27 @@
 package controller;
 
 import dao.InviteDao;
-import model.Invite;
+import payload.InvitePayload;
 import spark.Request;
 import spark.Response;
 
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 
-import static response.Response.fail;
-import static response.Response.getValidationMessages;
-import static response.Response.success;
+import static etc.Response.fail;
+import static etc.Response.getValidationMessages;
+import static etc.Response.success;
 
 public class InviteController extends BaseController {
     private InviteDao inviteDao = new InviteDao();
 
     public String create(Request req, Response res) {
-        Invite invite = gson.fromJson(req.body(), Invite.class);
+        InvitePayload payload = gson.fromJson(req.body(), InvitePayload.class);
 
-        System.out.println(invite);
-
-        Set<ConstraintViolation<Invite>> issues = validator.validate(invite);
+        Set<ConstraintViolation<InvitePayload>> issues = validator.validate(payload);
 
         if (issues.isEmpty()) {
-            inviteDao.createInvite(invite);
+            inviteDao.createInvite(payload.toModel());
             return success(null);
         } else {
             return fail(gson.toJsonTree(getValidationMessages(issues)));

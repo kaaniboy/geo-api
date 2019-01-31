@@ -1,7 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
-import response.GsonHelper;
+import etc.Helpers;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -14,6 +14,6 @@ public abstract class BaseController {
     public BaseController() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
-        gson = GsonHelper.gson();
+        gson = Helpers.gson();
     }
 }

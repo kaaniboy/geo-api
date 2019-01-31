@@ -5,6 +5,7 @@
 
         <class>model.Event</class>
         <class>model.Invite</class>
+        <class>model.User</class>
 
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/geo?useSSL=false"/>

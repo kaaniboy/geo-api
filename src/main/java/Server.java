@@ -3,7 +3,7 @@ import controller.InviteController;
 
 import javax.persistence.PersistenceException;
 
-import static response.Response.fail;
+import static etc.Response.fail;
 import static spark.Spark.*;
 
 public class Server {
@@ -22,6 +22,7 @@ public class Server {
         post("/invite", invite::create);
 
         exception(PersistenceException.class, (e, req, res) -> {
+            System.out.println(e.getMessage());
             res.body(fail("An error occurred when performing the operation."));
         });
     }

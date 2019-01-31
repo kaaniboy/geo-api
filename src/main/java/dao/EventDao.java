@@ -6,6 +6,8 @@ import model.Event;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static etc.Helpers.createEntityManager;
+
 public class EventDao extends BaseDao {
     public List<Event> getEvents() {
         @Cleanup EntityManager em = createEntityManager();
@@ -18,6 +20,8 @@ public class EventDao extends BaseDao {
     }
 
     public void createEvent(Event event) {
+        event.setEventId(0);
+
         @Cleanup EntityManager em = createEntityManager();
 
         em.getTransaction().begin();
