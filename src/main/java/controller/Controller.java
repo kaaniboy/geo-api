@@ -7,11 +7,11 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-public abstract class BaseController {
+public abstract class Controller {
     protected Validator validator;
     protected Gson gson;
 
-    public BaseController() {
+    public Controller() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
         gson = Helpers.gson();

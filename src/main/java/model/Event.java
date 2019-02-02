@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name="events")
-public class Event extends BaseModel<EventPayload> {
+public class Event extends Model<EventPayload> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="event_id")

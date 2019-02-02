@@ -16,7 +16,7 @@ import static etc.Helpers.createEntityManager;
 
 @Data
 @Entity
-public class EventPayload extends BasePayload<Event> {
+public class EventPayload extends Payload<Event> {
     private int eventId;
 
     @Min(value = 0, message = "The event must have a host.")

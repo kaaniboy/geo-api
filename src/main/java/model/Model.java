@@ -1,5 +1,5 @@
 package model;
 
-public abstract class BaseModel<T> {
+public abstract class Model<T> {
     public abstract T toPayload();
 }

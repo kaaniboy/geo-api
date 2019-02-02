@@ -8,7 +8,7 @@ import java.util.List;
 
 import static etc.Helpers.createEntityManager;
 
-public class InviteDao extends BaseDao {
+public class InviteDao extends Dao {
     public List<Invite> getInvites() {
         @Cleanup EntityManager em = createEntityManager();
 
@@ -26,6 +26,16 @@ public class InviteDao extends BaseDao {
 
         em.getTransaction().begin();
         em.persist(invite);
+        em.getTransaction().commit();
+    }
+
+    public void createInvites(List<Invite> invites) {
+        invites.forEach(i -> i.setInviteId(0));
+
+        @Cleanup EntityManager em = createEntityManager();
+
+        em.getTransaction().begin();
+        invites.forEach(em::persist);
         em.getTransaction().commit();
     }
 }

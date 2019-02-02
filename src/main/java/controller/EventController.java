@@ -15,7 +15,7 @@ import static etc.Response.getValidationMessages;
 import static etc.Response.success;
 import static etc.Response.fail;
 
-public class EventController extends BaseController {
+public class EventController extends Controller {
     private EventDao eventDao = new EventDao();
 
     public String create(Request req, Response res) {

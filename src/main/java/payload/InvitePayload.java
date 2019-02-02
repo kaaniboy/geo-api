@@ -13,7 +13,7 @@ import static etc.Helpers.createEntityManager;
 
 @Data
 @Entity
-public class InvitePayload extends BasePayload<Invite> {
+public class InvitePayload extends Payload<Invite> {
     private int inviteId;
 
     @Min(value = 0, message = "The invite must be tied to an event.")

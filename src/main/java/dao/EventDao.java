@@ -8,7 +8,7 @@ import java.util.List;
 
 import static etc.Helpers.createEntityManager;
 
-public class EventDao extends BaseDao {
+public class EventDao extends Dao {
     public List<Event> getEvents() {
         @Cleanup EntityManager em = createEntityManager();
 
